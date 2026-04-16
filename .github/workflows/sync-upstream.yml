@@ -1,0 +1,18 @@
+name: Auto Sync Upstream
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 0点（北京时间 8点）检查上游更新
+  workflow_dispatch:  # 保留手动触发，可随时手动同步
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync Upstream
+        uses: tgymnich/fork-sync@v1.6.0
+        with:
+          owner: WinFunan          # 上游仓库作者
+          repo: SandboxieCrack     # 上游仓库名
+          head: master             # 上游分支
+          base: master             # 你的Fork分支
+          token: ${{ secrets.GITHUB_TOKEN }}
