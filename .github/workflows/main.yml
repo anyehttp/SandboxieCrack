@@ -1,8 +1,6 @@
 name: CI
 
 on:
-  workflow_dispatch:
-
   push:
     branches: [master, experimental]
     paths-ignore:
@@ -67,6 +65,9 @@ on:
       - '**/INSTALL*'
       - '**/AUTHORS'
       - '**/COPYING'
+  workflow_dispatch:      # 保留手动触发
+  schedule:
+    - cron: '0 0 * * *'  # 【可选】每天 UTC 0点（北京时间 8点）自动编译，不需要可删除这两行
 
 env:
   forbuildVariables: use Installer\buildVariables.cmd file
